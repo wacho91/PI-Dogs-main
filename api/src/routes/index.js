@@ -50,7 +50,7 @@ router.get('/temperament', async(req, res) => {
         }
     });
     let finalArrayTemps = tempsEnds.filter((item, index) => {
-        return tempsEnds.indexOf(item) === index;//elimino los elementos repetidos
+        return tempsEnds.indexOf(item) === index;
     })
 
     for(let i = 0; i < finalArrayTemps.length; i++) {
@@ -62,5 +62,38 @@ router.get('/temperament', async(req, res) => {
     const allTemps = await Temperament.findAll();
     res.status(200).json(allTemps);
 })
+
+router.post('/dog', async (req, res) => {
+    const {
+        name,
+        weight_min,
+        weight_max,
+        height_min,
+        height_max,
+        life_span,
+        image,
+        createdInDB,
+        temperament,
+    } = req.body;
+    let newDog = await Dog.create({
+        name,
+        life_span,
+        image,
+        weight_min,
+        weight_max,
+        height_min,
+        height_max,
+        createdInDB
+    });
+    const unique = [...new Set(temperament)];
+    unique.map(async t => {
+        const tDB = await Temperament.findAll({
+            where: { name: t },
+            include: [ Dog ],
+        },);
+        newDog.addTemperament(tDB);
+    })
+    res.send('dog created successfully');
+});
 
 module.exports = router;
