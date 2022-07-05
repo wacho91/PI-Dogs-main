@@ -85,14 +85,12 @@ router.post('/dog', async (req, res) => {
         height_max,
         createdInDB
     });
-    const unique = [...new Set(temperament)];
-    unique.map(async t => {
+    
         const tDB = await Temperament.findAll({
-            where: { name: t },
-            include: [ Dog ],
+            where: { name: temperament },
         },);
+        
         newDog.addTemperament(tDB);
-    })
     res.send('dog created successfully');
 });
 
