@@ -1,0 +1,26 @@
+.container{
+    position: relative;
+    left: 10%;
+}
+
+.page{
+    list-style: none;
+    display: inline-table;
+    
+}
+
+.button{
+    color: white;
+    padding: 15px;
+    background-color: #68ae10;
+    border: none;
+    margin: 2px;
+    border-radius: 6px;
+    cursor: pointer;
+
+}
+
+.button:hover{
+    background-color: white;
+    color: #68AE28;
+}
