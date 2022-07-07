@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterByTemt, getDogs, getTemperaments, orderByName, orderByWeight } from "../../redux/actions";
 import Cards from "../Cards/Cards";
+import NavBar from "../NavBar/NavBar";
 import Paged from "../Paged/Paged";
 
 export default function Home() {
@@ -53,26 +54,28 @@ export default function Home() {
             <div>
                 <li>
                     <select onChange={(e) => handleFilterSortName(e)}>
-                        <option value="deafult" hidden>Sort breed by name</option>
+                        <option hidden>Sort breed by name</option>
                         <option value="asc">A - Z</option>
                         <option value="desc">Z - A</option>
                     </select>
                 </li>
                 <li>
                     <select onChange={ handleWeight}>
-                        <option value="default" hidden>Sort weight by value</option>
+                        <option hidden>Sort weight by value</option>
                         <option value="min">Lower Weight</option>
                         <option value="max">Higher weight</option>
                     </select>
                 </li>
                 <li>
                     <select onChange={(e) => handleFilterTemp(e)}>
-                    {/* <option value='' disabled selected>Filter by temperaments</option> */}
                     <option value='all' disabled selected>All temperament</option>
                         {
                         temperaments.map((t, index) => <option key={index} value={t.name}>{t.name}</option>)
                     }
                     </select>
+                </li>
+                <li>
+                    <NavBar setCurrentPage={setCurrentPage} />
                 </li>
             </div>
 

@@ -57,3 +57,19 @@ export function filterByTemt(payload) {
         payload
     }
 }
+
+export const getDogsByName = name => async dispatch => {
+    try {
+        const response = await axios.get(`http://localhost:3001/dogs?name=${name}`);
+        return dispatch({
+            type: 'GET_DOGS_BY_NAME',
+            payload: response.data,
+        });
+    } catch (error) {
+        alert('The breed that was searched not found')
+        return {
+            type: 'GET_DOGS_BY_NAME',
+            payload: error,
+        }
+    }
+};

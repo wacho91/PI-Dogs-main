@@ -20,6 +20,12 @@ const rootReducer = (state = initialState, action) => {
                 temperaments: action.payload
             }
 
+        case 'GET_DOGS_BY_NAME':
+            return {
+                ...state,
+                dogs: action.payload
+            }
+
         case 'ORDER_BY_NAME':
             const sortedName = action.payload === 'asc' ?
             state.dogs.sort(function (a, b) {
@@ -74,14 +80,6 @@ const rootReducer = (state = initialState, action) => {
             }
             
         case 'FILTER_BY_TEMT':
-            // let allTemp = state.allDogs;
-            // let tempFilter = action.payload === 'all' ? allTemp
-            // : allTemp.filter(dog => dog.temperament.includes(action.payload) || dog.temperament.map(e => e.name).includes(action.payload))
-            // return {
-            //     ...state,
-            //     dogs: tempFilter
-            // }
-
             const { allDogs } = state;
             const temperament = action.payload === 'All' ? allDogs : allDogs.filter(d => d.temperament?.includes(action.payload) || d.temperaments?.find(t => t.name === action.payload));
             return {
