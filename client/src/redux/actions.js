@@ -43,3 +43,17 @@ export function orderByName(payload) {
         payload
     }
 }
+
+export function orderByWeight(payload) {
+    return {
+        type: 'ORDER_BY_WEIGHT',
+        payload
+    }
+}
+
+export function filterByTemt(payload) {
+    return {
+        type: 'FILTER_BY_TEMT',
+        payload
+    }
+}
