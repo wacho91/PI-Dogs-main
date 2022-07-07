@@ -36,3 +36,10 @@ export const getTemperaments = () => async dispatch => {
 //       });
 //     };
 // }
+
+export function orderByName(payload) {
+    return {
+        type: 'ORDER_BY_NAME',
+        payload
+    }
+}
