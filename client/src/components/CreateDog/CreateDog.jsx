@@ -42,10 +42,6 @@ function validate(input) {
         errors.life_span = "Life span must be between 0 and 100";
     }
 
-    if(!input.temperament) {
-        errors.temperament = "Add at least one temperament";
-    }
-
     if (input.image !== "" && !/^(ftp|http|https):\/\/[^ "]+$/.test(input.image)) {
         errors.image = "Image must be a URL";
     }
@@ -109,22 +105,19 @@ export default function CreateDog() {
         if(input.temperament.length === 0) {
             alert('Please select at least one temperament')
         }
-
-        if(nameDogs.find(dog => dog.name.toLowerCase() === input.name.toLocaleLowerCase().trim())) {
+        else if(nameDogs.find(dog => dog.name.toLowerCase() === input.name.toLocaleLowerCase().trim())) {
             alert('Dog with this name already exists')
-            setErrors({
-                ...input,
-                [e.target.name]: "Dog with this name already exists"
-            })
         }
-
-        if(input.name === '') {
+        else if(input.name === '') {
             alert('Please enter name')
-            setErrors({
-                ...input,
-                [e.target.name]: "Please enter name"
-            })
-        }else {
+        }
+        else if(input.height_min < 0 || input.height_min > 100 || input.height_max < 0 || input.height_max > 100) {
+            alert('Please enter height between 0 and 100')
+        }
+        else if (input.image === ''){
+            alert('Please add a picture of the dog')
+        }
+        else {
             dispatch(createDog(input));
             alert('Dog created successfully')
             navigate("/home");
