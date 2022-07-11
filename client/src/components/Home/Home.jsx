@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { filterByTemt, getDogs, getTemperaments, orderByName, orderByWeight } from "../../redux/actions";
 import Cards from "../Cards/Cards";
 import NavBar from "../NavBar/NavBar";
@@ -21,6 +22,11 @@ export default function Home() {
 
     const paged = (numPage) => {
         setCurrentPage(numPage);
+    }
+
+    function handleClick(e) {
+        e.preventDefault();
+        dispatch(getDogs());
     }
 
     function handleFilterSortName(e) {
@@ -52,6 +58,14 @@ export default function Home() {
         <div>
 
             <div>
+                <li>
+                    <button onClick={e => { handleClick(e) }}>Home</button>
+                </li>
+                <li>
+                    <Link to='/create'>
+                        <button>Create Breed</button>
+                    </Link>
+                </li>
                 <li>
                     <select onChange={(e) => handleFilterSortName(e)}>
                         <option hidden>Sort breed by name</option>

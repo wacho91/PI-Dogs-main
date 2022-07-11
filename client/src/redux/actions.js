@@ -73,3 +73,35 @@ export const getDogsByName = name => async dispatch => {
         }
     }
 };
+
+export function getDogById(id) {
+    return async function (dispatch) {
+        var json = await axios.get(`http://localhost:3001/dogs/${id}`);
+        return dispatch({
+            type: 'DETAIL_DOG',
+            payload: json.data,
+        });
+    }
+}
+
+export function createDog(data) {
+    return async function (dispatch) {
+        try{
+            const results = await axios.post('http://localhost:3001/dog',data);
+            dispatch( {
+                type: 'CREATE_BREED',
+                payload: results.data
+            })
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+}
+
+export function cleanDog(payload) {
+    return {
+        type: 'CLEAN_DOG',
+        payload
+    }
+}

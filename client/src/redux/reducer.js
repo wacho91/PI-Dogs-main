@@ -26,6 +26,23 @@ const rootReducer = (state = initialState, action) => {
                 dogs: action.payload
             }
 
+        case 'DETAIL_DOG':  
+            return {
+                ...state,
+                details: action.payload
+            }
+
+        case 'CLEAN_DOG':
+            return {
+                ...state,
+                details: []
+            }
+
+        case 'CREATE_BREED':
+            return{
+                ...state
+            }
+
         case 'ORDER_BY_NAME':
             const sortedName = action.payload === 'asc' ?
             state.dogs.sort(function (a, b) {

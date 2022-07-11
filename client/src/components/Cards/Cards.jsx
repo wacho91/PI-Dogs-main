@@ -13,7 +13,7 @@ export default function Cards({currentDogs}) {
                             id={el.id}
                             name={el.name}
                             image={el.image}
-                            temperament={el.temperament}
+                            temperament={el.temperament || el.temperaments}
                             weight_min={el.weight_min}
                             weight_max={el.weight_max}
                         />
