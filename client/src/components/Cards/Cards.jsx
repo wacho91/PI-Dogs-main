@@ -1,10 +1,11 @@
 import React from "react";
 import Card from "../Card/Card";
+import style from "./Cards.module.css";
 
 
 export default function Cards({currentDogs}) {
     return(
-        <div>
+        <div className={style.container}>
             {
                 currentDogs.length && currentDogs.map((el) => {
                     return(

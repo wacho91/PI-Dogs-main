@@ -1,12 +1,15 @@
 .homeContainer {
-    position: absolute;
     width: 100%;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
+    position: absolute;
     background-image: url('https://i.pinimg.com/originals/29/8f/da/298fdab6747599714130d5670b81ceee.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
     background-attachment: fixed;
     background-position: center center;
 }
@@ -14,6 +17,7 @@
 .divNaBar{
     top: 5px;
     width: 100%;
+    
 }
 
 .navBar{
