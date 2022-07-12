@@ -5,6 +5,7 @@ import { filterByTemt, getDogs, getTemperaments, orderByName, orderByWeight } fr
 import Cards from "../Cards/Cards";
 import NavBar from "../NavBar/NavBar";
 import Paged from "../Paged/Paged";
+import style from "./Home.module.css";
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -55,42 +56,43 @@ export default function Home() {
     }, [dispatch]);
 
     return(
-        <div>
-
-            <div>
-                <li>
-                    <button onClick={e => { handleClick(e) }}>Home</button>
-                </li>
-                <li>
-                    <Link to='/create'>
-                        <button>Create Breed</button>
-                    </Link>
-                </li>
-                <li>
-                    <select onChange={(e) => handleFilterSortName(e)}>
-                        <option hidden>Sort breed by name</option>
-                        <option value="asc">A - Z</option>
-                        <option value="desc">Z - A</option>
-                    </select>
-                </li>
-                <li>
-                    <select onChange={ handleWeight}>
-                        <option hidden>Sort weight by value</option>
-                        <option value="min">Lower Weight</option>
-                        <option value="max">Higher weight</option>
-                    </select>
-                </li>
-                <li>
-                    <select onChange={(e) => handleFilterTemp(e)}>
-                    <option value='all' disabled selected>All temperament</option>
-                        {
-                        temperaments.map((t, index) => <option key={index} value={t.name}>{t.name}</option>)
-                    }
-                    </select>
-                </li>
-                <li>
-                    <NavBar setCurrentPage={setCurrentPage} />
-                </li>
+        <div className={style.homeContainer}>
+            <div className={style.divNavBar}>
+                <ul className={style.navBar}>
+                    <li>
+                        <button onClick={e => { handleClick(e) }} className={style.allElements}>Home</button>
+                    </li>
+                    <li>
+                        <Link to='/create'>
+                            <button className={style.allElements}>Create Breed</button>
+                        </Link>
+                    </li>
+                    <li className={style.elements}>
+                        <select onChange={(e) => handleFilterSortName(e)}>
+                            <option hidden className={style.allElements}>Sort breed by name</option>
+                            <option value="asc">A - Z</option>
+                            <option value="desc">Z - A</option>
+                        </select>
+                    </li>
+                    <li className={style.elements}>
+                        <select onChange={ handleWeight}>
+                            <option hidden className={style.allElements}>Sort weight by value</option>
+                            <option value="min">Lower Weight</option>
+                            <option value="max">Higher weight</option>
+                        </select>
+                    </li>
+                    <li className={style.elements}>
+                        <select onChange={(e) => handleFilterTemp(e)}>
+                        <option value='all' disabled selected>All temperament</option>
+                            {
+                            temperaments.map((t, index) => <option key={index} value={t.name}>{t.name}</option>)
+                        }
+                        </select>
+                    </li>
+                    <li>
+                        <NavBar setCurrentPage={setCurrentPage} />
+                    </li>
+                </ul>
             </div>
 
 

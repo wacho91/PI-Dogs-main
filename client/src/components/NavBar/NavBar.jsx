@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { getDogsByName } from "../../redux/actions";
+import style from "./NavBar.module.css";
 
 export default function NavBar({setCurrentPage}) {
     const [breed, setBreed] = React.useState("");
@@ -19,7 +20,7 @@ export default function NavBar({setCurrentPage}) {
     }
 
     return (
-        <div>
+        <div className={style.divContainer}>
             <form onSubmit={handleOnSubmit}>
                 <input
                     type="text"
@@ -27,7 +28,7 @@ export default function NavBar({setCurrentPage}) {
                     value={breed}
                     onChange={handleOnChange}
                 />
-                <button type="submit">Search</button>
+                <button type="submit" className={style.searchButton}>Search</button>
             </form>
         </div>
     )

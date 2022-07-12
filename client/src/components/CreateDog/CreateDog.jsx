@@ -193,7 +193,7 @@ export default function CreateDog() {
                         }
                         <br />
                     </div>
-                    {errors.temperament && <p>{errors.temperament}</p>}
+                    {/* {errors.temperament && <p>{errors.temperament}</p>} */}
                 </div>
                 <div>
                     <label><strong>Image: </strong></label>
