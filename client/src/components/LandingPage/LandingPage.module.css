@@ -1,8 +1,9 @@
 .divContainer {
-    background-image: url('https://img.huffingtonpost.com/asset/5c8b387c2300003000e7dc1f.jpeg?ops=scalefit_970_noupscale');
+    background-image: url('https://img.freepik.com/foto-gratis/salpicaduras-agua-retrato-color-chocolate-perro-labrador-grande-jugando-banarse_155003-42021.jpg?w=2000');
     backgorund-position: center;
-    background-repeat: no-repeat;
+     background-repeat: no-repeat;
     background-size: cover;
+    position: inherit;
     display: grid;
     gap: 1rem;
     grid-auto-rows: 50%;

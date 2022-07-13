@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { cleanDog, getDogById } from "../../redux/actions";
+import style from "./Detail.module.css";
 
 export default function Detail() {
     const dispatch = useDispatch();
@@ -21,23 +22,30 @@ export default function Detail() {
         return (<p>Loading...</p>)
     } else {
         return(
-            <div>
+            <div className={style.mainContainer}>
+                <div className={style.detailContainer}>
+                <img className={style.img} src={dog[0].image} alt="img not found"/>
+                    <div>
+                        <h1>{dog[0].name}</h1>
+                        
+                        <h4>Height: {dog[0].height_min} - {dog[0].height_max}</h4>
+                        
+                        <h4>Weight: {dog[0].weight_min} - {dog[0].weight_max}</h4>
+                        
+                        <h4>Life span: {dog[0].life_span}</h4>
+                       
+                        <h4>Temperaments: {
+                            dog[0].createdInDb? 
+                            dog[0].temperaments.map(el => el.name + (' ')) : 
+                            dog[0].temperament? 
+                            dog[0].temperament + ' ' : 
+                            " None"
+                        }</h4>
+                    </div>
+                </div>
                 <Link to='/home'>
-                   <button onClick={() => handleCleanDog()}>Back</button>
-                 </Link>
-
-                 <h1>{dog[0].name}</h1>
-                 <img src={dog[0].image} alt="img not found" width='400px' height='400px'/>
-                 <h4>Height: {dog[0].height_min} - {dog[0].height_max}</h4>
-                 <h4>Weight: {dog[0].weight_min} - {dog[0].weight_max}</h4>
-                 <h4>Life span: {dog[0].life_span}</h4>
-                 <h4>Temperaments: {
-                    dog[0].createdInDb? 
-                    dog[0].temperaments.map(el => el.name + (' ')) : 
-                    dog[0].temperament? 
-                    dog[0].temperament + ' ' : 
-                    " None"
-                }</h4>
+                    <button className={style.btn} onClick={() => handleCleanDog()}>Back</button>
+                </Link>
             </div>
         )
     }
