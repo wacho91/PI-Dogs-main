@@ -51,6 +51,13 @@ export function orderByWeight(payload) {
     }
 }
 
+// export function orderBy(payload) {
+//     return {
+//         type: 'ORDER_BY',
+//         payload
+//     }
+// }
+
 export function filterByTemt(payload) {
     return {
         type: 'FILTER_BY_TEMT',
@@ -66,11 +73,8 @@ export const getDogsByName = name => async dispatch => {
             payload: response.data,
         });
     } catch (error) {
-        alert('The breed that was searched not found')
-        return {
-            type: 'GET_DOGS_BY_NAME',
-            payload: error,
-        }
+        dispatch({type:'GET_DOGS_BY_NAME', payload: []});
+        console.log(error);
     }
 };
 

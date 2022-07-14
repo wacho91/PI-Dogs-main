@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createDog, getTemperaments } from "../../redux/actions";
+import { createDog, getDogs, getTemperaments } from "../../redux/actions";
 import style from "./CreateDog.module.css"; 
+import Loading from "../Loading/Loading";
 
 function validate(input) {
     let errors = {};
@@ -55,6 +56,8 @@ export default function CreateDog() {
     const navigate = useNavigate();
     const temps = useSelector((state) => state.temperaments);
     const nameDogs = useSelector((state) => state.dogs);
+    const [loading, setLoading] = useState(true);
+    
 
     const[errors, setErrors] = useState({});
     const [input, setInput] = useState({
@@ -69,6 +72,7 @@ export default function CreateDog() {
     });
 
     useEffect(() => {
+        dispatch(getDogs()).then(() => setLoading(false));
         dispatch(getTemperaments());
     },[dispatch]);
 
@@ -135,78 +139,83 @@ export default function CreateDog() {
         }
     }
 
-    return(
-        <div className={style.mainContainer}>
-            <div>
-                <Link to='/home'>
-                    <button className={style.btn}>Home</button>
-                </Link>
-                
-            </div>
-            <form className={style.mainForm} onSubmit={(e) => handleSubmit(e)}>
-                <h1 className={style.mainTitle}>Create your Own Breed</h1>
-                <div className={style.formLabel}>
-                    <label>Name: </label>
-                    <input type="text" name="name" value={input.name} onChange={handleChange} />
-                    {errors.name && <p className={style.error}>{errors.name}</p>}
+    if(loading) {
+        return <Loading />
+    }else {
+        return(
+            <div className={style.mainContainer}>
+                <div>
+                    <Link to='/home'>
+                        <button className={style.btn}>Home</button>
+                    </Link>
+                    
                 </div>
-                <div className={style.formLabel}>
-                    <label>WeightMin: </label>
-                    <input type="number" name="weight_min" value={input.weight_min} onChange={handleChange} />
-                    {errors.weight_min && <p className={style.error}>{errors.weight_min}</p>}
-                </div>
-                <div className={style.formLabel}>
-                    <label>WeightMax: </label>
-                    <input type="number" name="weight_max" value={input.weight_max} onChange={handleChange} />
-                    {errors.weight_max && <p className={style.error}>{errors.weight_max}</p>}
-                </div>
-                <div className={style.formLabel}>
-                    <label>HeightMin: </label>
-                    <input type="number" name="height_min" value={input.height_min} onChange={handleChange} />
-                    {errors.height_min && <p className={style.error}>{errors.height_min}</p>}
-                </div>
-                <div className={style.formLabel}>
-                    <label>HeightMax: </label>
-                    <input type="number" name="height_max" value={input.height_max} onChange={handleChange} />
-                    {errors.height_max && <p className={style.error}>{errors.height_max}</p>}
-                </div>
-                <div className={style.formLabel}>
-                    <label>LifeSpan: </label>
-                    <input type="text" name="life_span" value={input.life_span} onChange={handleChange} />
-                    {errors.life_span && <p className={style.error}>{errors.life_span}</p>}
-                </div>
-                <div className={style.formLabel}>
-                    <label>Temperaments: </label>
-                    <select onChange={(e) => handleSelect(e)}>
-                        <option value="" disabled>Select your option</option>
-                        {
-                            temps && temps.map((temp) => (
-                                <option 
-                                value={temp.name} 
-                                key={temp.name}>{temp.name.toUpperCase()}</option>
-                            ))
-                        }
-                    </select>
-                    <div>
-                        {
-                            input.temperament.map((temp) => (
-                                <button onClick={handleButtonTemp} value={temp} key={temp} className={style.removeBtn}>Remover {temp} </button>
-                            ))
-                        }
-                        <br />
+                <form className={style.mainForm} onSubmit={(e) => handleSubmit(e)}>
+                    <h1 className={style.mainTitle}>Create your Own Breed</h1>
+                    <div className={style.formLabel}>
+                        <label>Name: </label>
+                        <input type="text" name="name" value={input.name} onChange={handleChange} />
+                        {errors.name && <p className={style.error}>{errors.name}</p>}
                     </div>
-                    {/* {errors.temperament && <p>{errors.temperament}</p>} */}
-                </div>
-                <div>
-                    <label><strong>Image: </strong></label>
-                    <input onChange={handleChange} type="url" placeholder='https://example.com (Optional)' name="image" value={input.image} / >
-                    {errors.image && <p className={style.error}>{errors.image}</p>}
-                    <br /><br />
-                </div>
-                <div>
-                    <button type='submit' className={style.formBtn}><strong>Create </strong></button>
-                </div>
-            </form>
-        </div>
-    )
+                    <div className={style.formLabel}>
+                        <label>WeightMin: </label>
+                        <input type="number" name="weight_min" value={input.weight_min} onChange={handleChange} />
+                        {errors.weight_min && <p className={style.error}>{errors.weight_min}</p>}
+                    </div>
+                    <div className={style.formLabel}>
+                        <label>WeightMax: </label>
+                        <input type="number" name="weight_max" value={input.weight_max} onChange={handleChange} />
+                        {errors.weight_max && <p className={style.error}>{errors.weight_max}</p>}
+                    </div>
+                    <div className={style.formLabel}>
+                        <label>HeightMin: </label>
+                        <input type="number" name="height_min" value={input.height_min} onChange={handleChange} />
+                        {errors.height_min && <p className={style.error}>{errors.height_min}</p>}
+                    </div>
+                    <div className={style.formLabel}>
+                        <label>HeightMax: </label>
+                        <input type="number" name="height_max" value={input.height_max} onChange={handleChange} />
+                        {errors.height_max && <p className={style.error}>{errors.height_max}</p>}
+                    </div>
+                    <div className={style.formLabel}>
+                        <label>LifeSpan: </label>
+                        <input type="text" name="life_span" value={input.life_span} onChange={handleChange} />
+                        {errors.life_span && <p className={style.error}>{errors.life_span}</p>}
+                    </div>
+                    <div className={style.formLabel}>
+                        <label>Temperaments: </label>
+                        <select onChange={(e) => handleSelect(e)}>
+                            <option value="" disabled>Select your option</option>
+                            {
+                                temps && temps.map((temp) => (
+                                    <option 
+                                    value={temp.name} 
+                                    key={temp.name}>{temp.name.toUpperCase()}</option>
+                                ))
+                            }
+                        </select>
+                        <div>
+                            {
+                                input.temperament.map((temp) => (
+                                    <button onClick={handleButtonTemp} value={temp} key={temp} className={style.removeBtn}>Remover {temp} </button>
+                                ))
+                            }
+                            <br />
+                        </div>
+                        {/* {errors.temperament && <p>{errors.temperament}</p>} */}
+                    </div>
+                    <div>
+                        <label><strong>Image: </strong></label>
+                        <input onChange={handleChange} type="url" placeholder='https://example.com (Optional)' name="image" value={input.image} / >
+                        {errors.image && <p className={style.error}>{errors.image}</p>}
+                        <br /><br />
+                    </div>
+                    <div>
+                        <button type='submit' className={style.formBtn}><strong>Create </strong></button>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+
 }

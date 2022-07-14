@@ -5,7 +5,10 @@ import { filterByTemt, getDogs, getTemperaments, orderByName, orderByWeight } fr
 import Cards from "../Cards/Cards";
 import NavBar from "../NavBar/NavBar";
 import Paged from "../Paged/Paged";
+import Loading from "../Loading/Loading";
 import style from "./Home.module.css";
+import NotFound from "../NotFound/NotFound";
+
 
 export default function Home() {
     const dispatch = useDispatch();
@@ -20,6 +23,7 @@ export default function Home() {
     let currentDogs = allDogs.slice(indexOfFirstDog, indexOfLastDog);
 
     const [, setOrder] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const paged = (numPage) => {
         setCurrentPage(numPage);
@@ -51,60 +55,68 @@ export default function Home() {
     }
 
     useEffect(() => {
-        dispatch(getDogs());
+        dispatch(getDogs()).then(() => setLoading(false));
         dispatch(getTemperaments());
     }, [dispatch]);
 
-    return(
-        <div className={style.homeContainer}>
-            <div className={style.divNavBar}>
-                <ul className={style.navBar}>
-                    <li>
-                        <button onClick={e => { handleClick(e) }} className={style.allElements}>Home</button>
-                    </li>
-                    <li>
-                        <Link to='/create'>
-                            <button className={style.allElements}>Create Breed</button>
-                        </Link>
-                    </li>
-                    <li className={style.elements}>
-                        <select onChange={(e) => handleFilterSortName(e)}>
-                            <option hidden className={style.allElements}>Sort breed by name</option>
-                            <option value="asc">A - Z</option>
-                            <option value="desc">Z - A</option>
-                        </select>
-                    </li>
-                    <li className={style.elements}>
-                        <select onChange={ handleWeight}>
-                            <option hidden className={style.allElements}>Sort weight by value</option>
-                            <option value="min">Lower Weight</option>
-                            <option value="max">Higher weight</option>
-                        </select>
-                    </li>
-                    <li className={style.elements}>
-                        <select onChange={(e) => handleFilterTemp(e)}>
-                        <option value='all' disabled selected>All temperament</option>
-                            {
-                            temperaments.map((t, index) => <option key={index} value={t.name}>{t.name}</option>)
-                        }
-                        </select>
-                    </li>
-                    <li>
-                        <NavBar setCurrentPage={setCurrentPage} />
-                    </li>
-                </ul>
+    if(loading){
+        return(
+            <Loading />
+        )
+    }else {
+        return(
+            <div className={style.homeContainer}>
+                <div className={style.divNavBar}>
+                    <ul className={style.navBar}>
+                        <li>
+                            <button onClick={e => { handleClick(e) }} className={style.allElements}>Home</button>
+                        </li>
+                        <li>
+                            <Link to='/create'>
+                                <button className={style.allElements}>Create Breed</button>
+                            </Link>
+                        </li>
+                        <li className={style.elements}>
+                            <select onChange={(e) => handleFilterSortName(e)}>
+                                <option hidden className={style.allElements}>Sort breed by name</option>
+                                <option value="asc">A - Z</option>
+                                <option value="desc">Z - A</option>
+                            </select>
+                        </li>
+                        <li className={style.elements}>
+                            <select onChange={ handleWeight}>
+                                <option hidden className={style.allElements}>Sort weight by value</option>
+                                <option value="min">Lower Weight</option>
+                                <option value="max">Higher weight</option>
+                            </select>
+                        </li>
+                        <li className={style.elements}>
+                            <select onChange={(e) => handleFilterTemp(e)}>
+                            <option value='all' disabled selected>All temperament</option>
+                                {
+                                temperaments.map((t, index) => <option key={index} value={t.name}>{t.name}</option>)
+                            }
+                            </select>
+                        </li>
+                        <li>
+                            <NavBar setCurrentPage={setCurrentPage} />
+                        </li>
+                    </ul>
+                </div>
+    
+    
+                <Paged  
+                    dogsPerPage={dogsPerPage}
+                    allDogs={allDogs.length}
+                    paged={paged}
+                />
+                
+                {
+                    allDogs.length ? <Cards currentDogs={currentDogs} /> : <NotFound />
+                }
             </div>
+        )
 
+    }
 
-            <Paged  
-                dogsPerPage={dogsPerPage}
-                allDogs={allDogs.length}
-                paged={paged}
-            />
-            
-            {
-                allDogs.length ? <Cards currentDogs={currentDogs} /> : <h1>Loading...</h1>
-            }
-        </div>
-    )
 }

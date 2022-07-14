@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { cleanDog, getDogById } from "../../redux/actions";
+import Loading from "../Loading/Loading";
 import style from "./Detail.module.css";
 
 export default function Detail() {
@@ -19,7 +20,7 @@ export default function Detail() {
     }
 
     if(!dog[0]) {
-        return (<p>Loading...</p>)
+        return <Loading />
     } else {
         return(
             <div className={style.mainContainer}>
