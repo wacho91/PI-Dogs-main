@@ -1,14 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { cleanDog, getDogById } from "../../redux/actions";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { cleanDog, deleteDog, getDogById } from "../../redux/actions";
 import Loading from "../Loading/Loading";
 import style from "./Detail.module.css";
+
 
 export default function Detail() {
     const dispatch = useDispatch();
     const dog = useSelector((state) => state.details)
     const { id } = useParams();
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -19,11 +21,22 @@ export default function Detail() {
         dispatch(cleanDog());
     }
 
+    function handleDeleteDog() {
+        if(dog[0].createdInDb) {
+            dispatch(deleteDog(id));
+            dispatch(cleanDog());
+            alert("Dog deleted");
+            navigate("/home");
+        }
+        else alert("Dog not created in database");
+    }
+
     if(!dog[0]) {
         return <Loading />
     } else {
         return(
             <div className={style.mainContainer}>
+                <button className={style.dogDelete} onClick={() => handleDeleteDog()}>Delete</button>
                 <div className={style.detailContainer}>
                 <img className={style.img} src={dog[0].image} alt="img not found"/>
                     <div>

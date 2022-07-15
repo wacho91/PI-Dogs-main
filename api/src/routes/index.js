@@ -72,7 +72,7 @@ router.post('/dog', async (req, res) => {
         height_max,
         life_span,
         image,
-        createdInDB,
+        createdInDb,
         temperament,
     } = req.body;
     let newDog = await Dog.create({
@@ -83,7 +83,7 @@ router.post('/dog', async (req, res) => {
         weight_max,
         height_min,
         height_max,
-        createdInDB
+        createdInDb
     });
     
         const tDB = await Temperament.findAll({
@@ -93,5 +93,18 @@ router.post('/dog', async (req, res) => {
         newDog.addTemperament(tDB);
     res.send('dog created successfully');
 });
+
+router.delete('/delete/:id', async(req, res) => {
+    const { id } = req.params;
+    try {
+        const dog = Dog.findOne({where:{id : id}});
+        if(dog) {
+            await Dog.destroy({where:{id:id}})
+            res.status(201).send('dog deleted successfully');
+        }
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 module.exports = router;

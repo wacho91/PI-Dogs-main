@@ -109,3 +109,18 @@ export function cleanDog(payload) {
         payload
     }
 }
+
+export function deleteDog(id) {
+    return async function (dispatch) {
+        try{
+            const results = await axios.delete(`http://localhost:3001/delete/${id}`);
+            return dispatch({
+                type: 'DELETE_DOG',
+                payload: results.data
+            })
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+}
