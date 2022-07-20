@@ -19,23 +19,23 @@ export const getDogs = () => dispatch => {
 //     };
 //   }
 
-export const getTemperaments = () => async dispatch => {
-    const temperaments = await axios.get('http://localhost:3001/temperament')
-    return dispatch({
-        type: 'GET_TEMPERAMENTS',
-        payload: temperaments.data
-    })
+export const getTemperaments = () => dispatch => {
+    return fetch('http://localhost:3001/temperament')
+        .then(res => res.json())
+        .then(json => dispatch({
+            type: 'GET_TEMPERAMENTS',
+            payload: json
+        }))
 }
 
-// export function getTemperaments() {
-//     return async function (dispatch) {
-//       var temp = await axios.get('http://localhost:3001/temperament');
-//       return dispatch({
+// export const getTemperaments = () => async dispatch => {
+//     const temperaments = await axios.get('http://localhost:3001/temperament')
+//     return dispatch({
 //         type: 'GET_TEMPERAMENTS',
-//         payload: temp.data,
-//       });
-//     };
+//         payload: temperaments.data
+//     })
 // }
+
 
 export function orderByName(payload) {
     return {
@@ -65,6 +65,7 @@ export function filterByTemt(payload) {
     }
 }
 
+
 export const getDogsByName = name => async dispatch => {
     try {
         const response = await axios.get(`http://localhost:3001/dogs?name=${name}`);
@@ -78,15 +79,24 @@ export const getDogsByName = name => async dispatch => {
     }
 };
 
-export function getDogById(id) {
-    return async function (dispatch) {
-        var json = await axios.get(`http://localhost:3001/dogs/${id}`);
-        return dispatch({
+export const getDogById = id => async dispatch => {
+    return fetch(`http://localhost:3001/dogs/${id}`)
+        .then(res => res.json())
+        .then(json => dispatch({
             type: 'DETAIL_DOG',
-            payload: json.data,
-        });
-    }
+            payload: json
+        }))
 }
+
+// export function getDogById(id) {
+//     return async function (dispatch) {
+//         var json = await axios.get(`http://localhost:3001/dogs/${id}`);
+//         return dispatch({
+//             type: 'DETAIL_DOG',
+//             payload: json.data,
+//         });
+//     }
+// }
 
 export function createDog(data) {
     return async function (dispatch) {
