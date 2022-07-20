@@ -98,7 +98,7 @@ export default function Home() {
                             }
                             </select>
                         </li>
-                        <li>
+                        <li className={style.elements}>
                             <NavBar setCurrentPage={setCurrentPage} />
                         </li>
                     </ul>

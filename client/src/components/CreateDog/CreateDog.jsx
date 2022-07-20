@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createDog, getDogs, getTemperaments } from "../../redux/actions";
+import { createDog, getTemperaments } from "../../redux/actions";
 import style from "./CreateDog.module.css"; 
 import Loading from "../Loading/Loading";
 
@@ -72,8 +72,8 @@ export default function CreateDog() {
     });
 
     useEffect(() => {
-        dispatch(getDogs()).then(() => setLoading(false));
-        dispatch(getTemperaments());
+        // dispatch(getDogs()).then(() => setLoading(false));
+        dispatch(getTemperaments()).then(() => setLoading(false));
     },[dispatch]);
 
     function handleChange(e) {
