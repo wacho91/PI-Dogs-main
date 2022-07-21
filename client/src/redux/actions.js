@@ -65,6 +65,14 @@ export function filterByTemt(payload) {
     }
 }
 
+export function cleanDog(payload) {
+    return {
+        type: 'CLEAN_DOG',
+        payload
+    }
+}
+
+
 
 export const getDogsByName = name => async dispatch => {
     try {
@@ -113,12 +121,7 @@ export function createDog(data) {
     }
 }
 
-export function cleanDog(payload) {
-    return {
-        type: 'CLEAN_DOG',
-        payload
-    }
-}
+
 
 export function deleteDog(id) {
     return async function (dispatch) {

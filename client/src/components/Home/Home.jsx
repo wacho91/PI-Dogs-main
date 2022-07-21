@@ -9,7 +9,6 @@ import Loading from "../Loading/Loading";
 import style from "./Home.module.css";
 import NotFound from "../NotFound/NotFound";
 
-
 export default function Home() {
     const dispatch = useDispatch();
     const allDogs = useSelector((state) => state.dogs);
@@ -54,7 +53,9 @@ export default function Home() {
         setCurrentPage(1);
     }
 
+
     useEffect(() => {
+        // el useEffect es como el componentDidMount, va a traer mi action creator getDogs al renderizar
         dispatch(getDogs()).then(() => setLoading(false));
         dispatch(getTemperaments());
     }, [dispatch]);
@@ -78,7 +79,7 @@ export default function Home() {
                         </li>
                         <li className={style.elements}>
                             <select onChange={(e) => handleFilterSortName(e)}>
-                                <option hidden className={style.allElements}>Sort breed by name</option>
+                                <option hidden className={style.allElements}>Order Breed</option>
                                 <option value="asc">A - Z</option>
                                 <option value="desc">Z - A</option>
                             </select>

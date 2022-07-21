@@ -17,6 +17,7 @@ export default function Cards({currentDogs}) {
                             temperament={el.temperament || el.temperaments}
                             weight_min={el.weight_min}
                             weight_max={el.weight_max}
+                            origin={el.origin}
                         />
                     )
                 })

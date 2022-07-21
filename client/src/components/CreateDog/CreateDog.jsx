@@ -119,6 +119,9 @@ export default function CreateDog() {
         else if(input.height_min < 0 || input.height_min > 100 || input.height_max < 0 || input.height_max > 100) {
             alert('Please enter height between 0 and 100')
         }
+        else if(input.weight_min < 0 || input.weight_min > 100 || input.weight_max < 0 || input.weight_max > 100) {
+            alert('Please enter weight between 0 and 100')
+        }
         else if (input.image === ''){
             alert('Please add a picture of the dog')
         }

@@ -160,6 +160,7 @@ const rootReducer = (state = initialState, action) => {
                 dogs: temperament
             }
 
+
             
         default: 
             return state;

@@ -15,6 +15,7 @@ const infoApi = async() => {
             height_min: parseInt(d.height.metric.slice(0, 2).trim()),
             height_max: parseInt(d.height.metric.slice(4).trim()),
             life_span: d.life_span,
+            origin: d.origin,
             image: d.image.url,
             temperament: d.temperament
         }
